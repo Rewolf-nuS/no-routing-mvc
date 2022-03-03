@@ -7,12 +7,12 @@ use app\core\Paginator;
 use app\models\User;
 
 /**
- * class HomeController
+ * class UserController
  *
  * @package app\controllers
  */
 
-class HomeController extends Controller
+class UserController extends Controller
 {
   public function indexView()
   {
@@ -22,6 +22,6 @@ class HomeController extends Controller
     [$limit, $offset] = $paginator->getDatabaseProps();
     $paginate = $paginator->paginate($count, 3, []);
     $users = $user->sortByGender('male', $limit, $offset);
-    $this->setTitle('MVC')->render('index', ['users' => $users, 'paginate' => $paginate]);
+    $this->setTitle('MVC')->render('users/index', ['users' => $users, 'paginate' => $paginate]);
   }
 }

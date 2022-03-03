@@ -1,4 +1,4 @@
-<h1>Home</h1>
+<h1>User</h1>
 
 <ul>
   <?php
@@ -12,3 +12,4 @@
   <?php include Paginator::renderPagination() ?>
 </ul>
 
+<p>users</p>

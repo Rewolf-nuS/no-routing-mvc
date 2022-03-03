@@ -84,7 +84,12 @@ class Paginator
     ];
   }
 
-  public function renderPagination() {
+  /**
+   * Get path for pagination list.
+   *
+   * @return string
+   */
+  public static function renderPagination() {
     return __DIR__. '/../../app/views/components/paginate.php';
   }
 }
