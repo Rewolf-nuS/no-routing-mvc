@@ -1,0 +1,14 @@
+{
+  "name": "minaki/no-routing-mvc-beta",
+  "autoload": {
+    "psr-4": {
+      "app\\": "app/"
+    },
+    "files": [
+      "app/core/helpers.php"
+    ]
+  },
+  "require": {
+    "vlucas/phpdotenv": "^5.4"
+  }
+}
