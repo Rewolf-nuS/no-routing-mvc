@@ -48,6 +48,58 @@ if (!function_exists('h')) {
   };
 
 
+  if (!function_exists('dd')) {
+    /**
+     * Convenience method for debug.
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    function dd($value)
+    {
+      $pre_styles = [
+        'width' => 'min(95%,700px)',
+        'font-size' => '14px',
+        'color' => '#FFFFFF',
+        'background-color' => '#2F3437',
+        'border-left' => 'solid 10px #77B063',
+        'border-top-right-radius' => '20px',
+        'margin-left' => '10px',
+        'padding' => '20px 20px 20px 10px',
+      ];
+      $code_styles = [
+        'display' => 'block',
+        'max-height' => '300px',
+        'overflow-y' => 'scroll',
+        'padding-bottom' => '5px',
+      ];
+
+      printf(
+        '<pre style="%s"><code style="%s">%s</code></pre>',
+        inlineStyleGenerate($pre_styles),
+        inlineStyleGenerate($code_styles),
+        var_export($value, true)
+      );
+
+      return $value;
+    }
+  }
+
+
+  if (!function_exists('inlineStyleGenerate')) {
+    function inlineStyleGenerate($styles)
+    {
+      $res = [];
+      foreach ($styles as $k => $v) {
+        $inline_style = "$k:$v;";
+        $res[] = $inline_style;
+      }
+
+      return implode('', $res);
+    }
+  }
+
+
   if (!function_exists('route')) {
     /**
      * Return page path.
