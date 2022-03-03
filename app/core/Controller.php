@@ -53,11 +53,10 @@ class Controller
   public function render(
     string $fileName,
     array $params = null,
-    array $config = ['layoutName' => 'app', 'headName' => 'head', 'headerName' => 'header', 'footerName' => 'footer']
+    array $config = ['layoutName' => 'app', 'headerName' => 'header', 'footerName' => 'footer']
   ) {
     // convert array to config variables.
     extract($config);
-    $head = $this->componentsPath($headName);
     $header = $this->componentsPath($headerName);
     $footer = $this->componentsPath($footerName);
 
@@ -80,12 +79,11 @@ class Controller
    * @param string $layoutName
    * @return void
    */
-  public function errorView(\Exception $exception, $config = ['layoutName' => 'app', 'headName' => 'head', 'headerName' => 'header', 'footerName' => 'footer'])
+  public function errorView(\Exception $exception, $config = ['layoutName' => 'app', 'headerName' => 'header', 'footerName' => 'footer'])
   {
     http_response_code($exception->getCode());
 
     extract($config);
-    $head = $this->componentsPath($headName);
     $header = $this->componentsPath($headerName);
     $footer = $this->componentsPath($footerName);
 
