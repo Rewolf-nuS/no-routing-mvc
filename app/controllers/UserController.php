@@ -20,7 +20,7 @@ class UserController extends Controller
     $paginator = new Paginator(5);
     $count = $user->count('user_id', 'users', ['user_gender' => 'male']);
     [$limit, $offset] = $paginator->getDatabaseProps();
-    $paginate = $paginator->paginate($count, 3, []);
+    $paginate = $paginator->paginate($count, 3, ['test' => '1']);
     $users = $user->sortByGender('male', $limit, $offset);
     $this->setTitle('MVC')->render('users/index', ['users' => $users, 'paginate' => $paginate]);
   }

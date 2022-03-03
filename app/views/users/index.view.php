@@ -1,11 +1,12 @@
+<?php
+
+use app\core\Paginator;
+dd($paginate) ?>
+
 <h1>User</h1>
 
 <ul>
-  <?php
-
-  use app\core\Paginator;
-
-  foreach ($users as $k => $v) : ?>
+  <?php foreach ($users as $k => $v) : ?>
     <li><?= $v['user_id'] . ' : ' . $v['user_name'] ?></li>
   <?php endforeach; ?>
 
