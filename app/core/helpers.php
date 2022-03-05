@@ -1,4 +1,7 @@
 <?php
+
+use app\core\Session;
+
 if (!function_exists('t')) {
   /**
    * Triming first character and last character.
@@ -46,99 +49,116 @@ if (!function_exists('h')) {
 
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
   };
+}
 
 
-  if (!function_exists('dd')) {
-    /**
-     * Convenience method for debug.
-     *
-     * @param mixed $value
-     * @return mixed
-     */
-    function dd($value)
-    {
-      $pre_styles = [
-        'width' => 'min(95%,700px)',
-        'font-size' => '14px',
-        'color' => '#FFFFFF',
-        'background-color' => '#2F3437',
-        'border-left' => 'solid 10px #77B063',
-        'border-top-right-radius' => '20px',
-        'margin-left' => '10px',
-        'padding' => '20px 20px 20px 10px',
-      ];
-      $code_styles = [
-        'display' => 'block',
-        'max-height' => '300px',
-        'overflow-y' => 'scroll',
-        'padding-bottom' => '5px',
-      ];
+if (!function_exists('dd')) {
+  /**
+   * Convenience method for debug.
+   *
+   * @param mixed $var
+   * @param array $vars
+   * @return void
+   */
+  function dd($var, ...$vars)
+  {
+    $pre_styles = [
+      'width' => 'min(95%,700px)',
+      'font-size' => '14px',
+      'line-height' => '1.5',
+      'color' => '#FFFFFF',
+      'background-color' => '#2F3437',
+      'border-left' => 'solid 10px #77B063',
+      'border-top-right-radius' => '20px',
+      'margin-left' => '10px',
+      'padding' => '20px 20px 20px 10px',
+    ];
+    $code_styles = [
+      'display' => 'block',
+      'max-height' => '300px',
+      'overflow-y' => 'scroll',
+      'padding-bottom' => '5px',
+    ];
 
-      printf(
-        '<pre style="%s"><code style="%s">%s</code></pre>',
-        inlineStyleGenerate($pre_styles),
-        inlineStyleGenerate($code_styles),
-        var_export($value, true)
-      );
+    echo '<pre style="' . __inlineStyleGenerate($pre_styles) . '">';
+    echo '<code style="' . __inlineStyleGenerate($code_styles) . '">';
+    var_dump($var, ...$vars);
+    echo '</code>';
+    echo '</pre>';
 
-      return $value;
-    }
+    return [$var, ...$vars];
   }
+}
 
 
-  if (!function_exists('inlineStyleGenerate')) {
-    function inlineStyleGenerate($styles)
-    {
-      $res = [];
-      foreach ($styles as $k => $v) {
-        $inline_style = "$k:$v;";
-        $res[] = $inline_style;
-      }
-
-      return implode('', $res);
+if (!function_exists('__inlineStyleGenerate')) {
+  function __inlineStyleGenerate($styles)
+  {
+    $res = [];
+    foreach ($styles as $k => $v) {
+      $inline_style = "$k:$v;";
+      $res[] = $inline_style;
     }
+
+    return implode('', $res);
   }
+}
 
 
-  if (!function_exists('route')) {
-    /**
-     * Return page path.
-     *
-     * @param string $path
-     * @return string
-     */
-    function route($path)
-    {
-      $url = BASE_URL . 'public/' . $path;
-      return $url;
-    }
+if (!function_exists('route')) {
+  /**
+   * Return page path.
+   *
+   * @param string $path
+   * @return string
+   */
+  function route($path)
+  {
+    return BASE_URL . 'public/' . $path;
   }
+}
 
 
-  if (!function_exists('assets')) {
-    /**
-     * Return asset path.
-     *
-     * @param string $path
-     * @return string
-     */
-    function assets($path)
-    {
-      return BASE_URL . 'assets/' . $path;
-    }
+if (!function_exists('assets')) {
+  /**
+   * Return asset path.
+   *
+   * @param string $path
+   * @return string
+   */
+  function assets($path)
+  {
+    return BASE_URL . 'assets/' . $path;
   }
+}
 
 
-  if (!function_exists('redirect')) {
-    /**
-     * Convenience method for redirect.
-     *
-     * @param [type] $path
-     * @return void
-     */
-    function redirect($path)
-    {
-      header("Location: {$path}");
-    }
+if (!function_exists('redirect')) {
+  /**
+   * Convenience method for redirect.
+   *
+   * @param [type] $path
+   * @return void
+   */
+  function redirect($path)
+  {
+    header("Location: {$path}");
   }
-};
+}
+
+
+if (!function_exists('create_csrf_token')) {
+  /**
+   * Create a CSRF token and save to session.
+   *
+   * @param int $length
+   * @return bool
+   */
+  function create_csrf_token($length = 16)
+  {
+    $token = bin2hex(random_bytes($length));
+    Session::set('csrf_token', $token);
+
+    return Session::exists('csrf_token');
+  }
+}
