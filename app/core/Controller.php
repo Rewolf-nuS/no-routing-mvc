@@ -47,15 +47,17 @@ class Controller
    *
    * @param string $fileName
    * @param array|null $params
-   * @param string $layoutName
+   * @param array $new_config [layoutName, headerName, footerName]
    * @return void
    */
   public function render(
     string $fileName,
     array $params = null,
-    array $config = ['layoutName' => 'app', 'headerName' => 'header', 'footerName' => 'footer']
+    array $new_config = []
   ) {
     // convert array to config variables.
+    $config = ['layoutName' => 'app', 'headerName' => 'header', 'footerName' => 'footer'];
+    $config = array_merge($config, $new_config);
     extract($config);
     $header = $this->componentsPath($headerName);
     $footer = $this->componentsPath($footerName);
