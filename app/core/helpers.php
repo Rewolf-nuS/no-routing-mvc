@@ -112,9 +112,13 @@ if (!function_exists('route')) {
    * @param string $path
    * @return string
    */
-  function route($path)
+  function route($path = "/")
   {
-    return BASE_URL . 'public/' . $path;
+    if ($path === "/") {
+      return BASE_URL . 'public/';
+    } else {
+      return BASE_URL . 'public' . $path . "/";
+    }
   }
 }
 
@@ -128,7 +132,7 @@ if (!function_exists('assets')) {
    */
   function assets($path)
   {
-    return BASE_URL . 'assets/' . $path;
+    return BASE_URL . 'assets' . $path;
   }
 }
 
