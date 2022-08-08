@@ -14,7 +14,7 @@ class HomeController extends Controller
 {
   public function indexView()
   {
-    // if you want to set page title, ex) $this->setTitle('Your title')->render('index');
+    // if you want to set unique page title, ex) $this->setTitle('Your title')->render('index');
     $this->render('index');
   }
 }
